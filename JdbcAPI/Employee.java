@@ -41,6 +41,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "      "+empid+"           "+ empname+ "              "+salary ;
+        return STR."      \{empid}           \{empname}              \{salary}";
     }
 }

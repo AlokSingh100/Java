@@ -1,12 +1,9 @@
 package JdbcAPI;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-
+import static java.time.chrono.JapaneseEra.values;
 
 
 public class EmpDetail {
@@ -14,7 +11,7 @@ public class EmpDetail {
 
 
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, InputMismatchException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("Driver register");
         Connection cnot=DriverManager.getConnection("jdbc:mysql://localhost:3306/super","root","Aptech@123");
@@ -24,9 +21,9 @@ public class EmpDetail {
         List<Employee> emp=new ArrayList<Employee>();
         Scanner scanner=new Scanner(System.in);
         int select = 0, fet=0,newsal = 0;
-        int idt=0,sid=0,nit,fir,sip,dat;
+        int idt=0,sid=0,nit,fir,sip,dat,option;
         String name,sir,lat;
-        Float salary,tir ;
+        int salary,tir ;
          PreparedStatement stm = null;
 
         while (true){
@@ -46,17 +43,37 @@ public class EmpDetail {
                     System.out.println("Enter Employee Name");
                     name=scanner.next();
                     System.out.println("Enter the Employee Salary");
-                    salary=scanner.nextFloat();
-                    emp.add(new Employee(idt,name,salary));
+                    salary=scanner.nextInt();
+//                    emp.add(new Employee(idt,name,salary));
+//                     PreparedStatement prepared=cnot.prepareStatement("Insert into employe values(?,?,?)");
+//                      prepared.setInt(1,idt);
+//                      prepared.setString(2, name);
+//                      prepared.setInt(3,salary);
+//                    System.out.println("Data Insert Successfully");
+
+try {
+
+    
+    String insert=("Insert into employe values("+idt+","+"'"+name+"'"+","+salary +");");
+    PreparedStatement prepare = cnot.prepareStatement(insert);
+    prepare.executeUpdate();
+}catch (Exception e){}
 
 
                     break;
                 case 2:
                     System.out.println("Employee ID  | Employee Name  | Employee Salary ");
-                    ResultSet rs=stm.executeQuery("Select* from employe");
-        while (rs.next()){
-            System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3));
-        }
+                    try {
+
+
+                        assert stm != null;
+                        ResultSet rs = stm.executeQuery("Select* from employe");
+                        while (rs.next()) {
+                            System.out.println(STR."\{rs.getInt(1)}\t\{rs.getString(2)}\t\{rs.getInt(3)}");
+                        }
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 3:
@@ -64,22 +81,24 @@ public class EmpDetail {
                     sid=scanner.nextInt();
                     System.out.println("Employee ID  | Employee Name  | Employee Salary ");
 
-                    for(int i=0;i<= emp.size();i++) {
-
-//                        System.out.println("sid = "+ sid);
-//                        System.out.println("idt ="+emp.get(i).getEmpid() );
-                        if (sid==emp.get(i).getEmpid()) {
-                            System.out.println( emp.get(i));
-                            System.out.println(" ");
-                            break;
-                        }
-//                        System.out.println(i);
-                    }
+//                    for(int i=0;i<= emp.size();i++) {
+//
+////                        System.out.println("sid = "+ sid);
+////                        System.out.println("idt ="+emp.get(i).getEmpid() );
+//                        if (sid==emp.get(i).getEmpid()) {
+//                            System.out.println( emp.get(i));
+//                            System.out.println(" ");
+//                            break;
+//                        }
+////                        System.out.println(i);
+//                    }
+                    ResultSet ras=stm.executeQuery("select * from employe where empid="+sid );
+                     System.out.println(ras.getInt(1)+"\t"+ras.getString(2)+"\t"+ras.getInt(3));
                     break;
                 case 4:
-                	   System.out.println("Enter the Employee id ");
+
 //
-                        nit=scanner.nextInt();
+
 //                    System.out.println("");
 //                       for(int  i=0;i<=emp.size();i++) {
 //
@@ -101,24 +120,47 @@ public class EmpDetail {
 //
 //                               System.out.println("Updated Successfully");
 //                           }
-                    newsal=scanner.nextInt();
-                      PreparedStatement preparedStatement=cnot.prepareStatement("update employe set salary=? where EmpID?");
+
+                    System.out.println( "What Do you want to update ");
+                    System.out.println("1 Employee Id");
+                    System.out.println("2 Employee Name");
+                    System.out.println("3 Employee Salary");
+                    option=scanner.nextInt();
+                    switch (option){
+                        case 1:
+                             System.out.println("Enter the Employee id ");
+                              nit=scanner.nextInt();
+                            System.out.println("Enter the New Employee Id");
+                             newsal=scanner.nextInt();
+                      PreparedStatement preparedStatement=cnot.prepareStatement("update employe set empid=? where EmpID=?");
                       preparedStatement.setInt(1,newsal);
                       preparedStatement.setInt(2,nit);
+                            break;
+                        case 2:
+                             System.out.println("Enter the Employee id ");
+                             int nita=scanner.nextInt();
+                            System.out.println("Enter the New Employee Id");
+                            String newsala=scanner.next();
+                      PreparedStatement Statement=cnot.prepareStatement("update employe set name=? where EmpID=?");
+                      Statement.setString(1, newsala);
+                      Statement.setInt(2,nita);
+                    }
+
                     		   break;
 
                 case 5:
                     System.out.println("Enter the Employee id ");
                     sip=scanner.nextInt();
-                    for(int  i=0;i<=emp.size();i++) {
-
-                        if (sip==emp.get(i).getEmpid()) {
-                            emp.remove(i);
-                            System.out.println("Delete Successfully ");
-                            break;
-                        }
-
-                    }
+//                    for(int  i=0;i<=emp.size();i++) {
+//
+//                        if (sip==emp.get(i).getEmpid()) {
+//                            emp.remove(i);
+//                            System.out.println("Delete Successfully ");
+//                            break;
+//                        }
+//
+//                    }
+                    ResultSet rasa=stm.executeQuery(STR."Deleate from employe where EmpID=\{sip}");
                     break;
 //                case 6:
 //                    System.out.println("Sort BY :");
