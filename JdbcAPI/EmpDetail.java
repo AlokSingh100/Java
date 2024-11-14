@@ -16,6 +16,7 @@ public class EmpDetail {
         System.out.println("Driver register");
         Connection cnot=DriverManager.getConnection("jdbc:mysql://localhost:3306/super","root","Aptech@123");
         System.out.println("Sql Connection Establish");
+        Statement stma=cnot.createStatement();
 
 
         List<Employee> emp=new ArrayList<Employee>();
@@ -38,8 +39,8 @@ public class EmpDetail {
             select=scanner.nextInt();
             switch (select){
                 case 1:
-                    System.out.println("Enter the Employee Id");
-                    idt=scanner.nextInt();
+//                    System.out.println("Enter the Employee Id");
+//                    idt=scanner.nextInt();
                     System.out.println("Enter Employee Name");
                     name=scanner.next();
                     System.out.println("Enter the Employee Salary");
@@ -54,10 +55,12 @@ public class EmpDetail {
 try {
 
     
-    String insert=("Insert into employe values("+idt+","+"'"+name+"'"+","+salary +");");
+    String insert=(STR."Insert into employe (Name,Salary) values('\{name}',\{salary});");
     PreparedStatement prepare = cnot.prepareStatement(insert);
     prepare.executeUpdate();
-}catch (Exception e){}
+}catch (Exception e){
+    System.out.println(e.getMessage());
+}
 
 
                     break;
@@ -66,10 +69,10 @@ try {
                     try {
 
 
-                        assert stm != null;
-                        ResultSet rs = stm.executeQuery("Select* from employe");
+
+                        ResultSet rs = stma.executeQuery("Select* from employe");
                         while (rs.next()) {
-                            System.out.println(STR."\{rs.getInt(1)}\t\{rs.getString(2)}\t\{rs.getInt(3)}");
+                            System.out.println(STR."\t\{rs.getInt(1)}\t\t\t\{rs.getString(2)}\t\t\t\{rs.getInt(3)}");
                         }
                     }catch (Exception e){
                         System.out.println(e.getMessage());
@@ -92,8 +95,16 @@ try {
 //                        }
 ////                        System.out.println(i);
 //                    }
-                    ResultSet ras=stm.executeQuery("select * from employe where empid="+sid );
-                     System.out.println(ras.getInt(1)+"\t"+ras.getString(2)+"\t"+ras.getInt(3));
+                    try {
+
+
+                        ResultSet ras = stma.executeQuery(STR."select * from employe where empid=\{sid}");
+                        while (ras.next()) {
+                            System.out.println(STR."\t\{ras.getInt(1)}\t\t\t\{ras.getString(2)}\t\t\t\{ras.getInt(3)}");
+                        }
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 4:
 
@@ -135,18 +146,31 @@ try {
                       PreparedStatement preparedStatement=cnot.prepareStatement("update employe set empid=? where EmpID=?");
                       preparedStatement.setInt(1,newsal);
                       preparedStatement.setInt(2,nit);
+                      preparedStatement.executeUpdate();
                             break;
                         case 2:
                              System.out.println("Enter the Employee id ");
                              int nita=scanner.nextInt();
-                            System.out.println("Enter the New Employee Id");
+                            System.out.println("Enter the New Employee Name");
                             String newsala=scanner.next();
                       PreparedStatement Statement=cnot.prepareStatement("update employe set name=? where EmpID=?");
                       Statement.setString(1, newsala);
                       Statement.setInt(2,nita);
+                      Statement.executeUpdate();
+                      break;
+                        case 3:
+                            System.out.println("Enter the Employee id ");
+                             int ni=scanner.nextInt();
+                            System.out.println("Enter the New Employee Name");
+                            int newsa=scanner.nextInt();
+                      PreparedStatement Stat=cnot.prepareStatement("update employe set Salary=? where EmpID=?");
+                      Stat.setInt(1, newsa);
+                      Stat.setInt(2,ni);
+                      Stat.executeUpdate();
+                      break;
                     }
 
-                    		   break;
+break;
 
                 case 5:
                     System.out.println("Enter the Employee id ");
@@ -160,9 +184,16 @@ try {
 //                        }
 //
 //                    }
-                    ResultSet rasa=stm.executeQuery(STR."Deleate from employe where EmpID=\{sip}");
+                    try {
+
+
+                        PreparedStatement deleat = cnot.prepareStatement(STR."Delete from employe where EmpID=\{sip}");
+                        deleat.executeUpdate();
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
-//                case 6:
+                case 6:
 //                    System.out.println("Sort BY :");
 //                    System.out.println("1:By Employee ID");
 //                    System.out.println("2:By Employee Name");
@@ -192,9 +223,35 @@ try {
 //                             for (Employee em:emp){
 //                                 System.out.println(em);
 //                             }
-//                             break;
-//
-//                    }
+                    System.out.println("what do you want to sort by");
+                    System.out.println("1. name");
+                    System.out.println("2. salary");
+                    int a=scanner.nextInt();
+                    switch (a) {
+                        case 1:
+                        try {
+
+
+                            ResultSet sorat = stma.executeQuery("SELECT * FROM employe ORDER BY name ");
+                            while (sorat.next()) {
+                                System.out.println(STR."\t\{sorat.getInt(1)}\t\t\t\{sorat.getString(2)}\t\t\t\{sorat.getInt(3)}");
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                            break;
+                        case 2:
+                            try {
+                             ResultSet sor = stma.executeQuery("SELECT * FROM employe ORDER BY salary");
+                            while (sor.next()) {
+                                System.out.println(STR."\t\{sor.getInt(1)}\t\t\t\{sor.getString(2)}\t\t\t\{sor.getInt(3)}");
+                            }
+                        } catch (Exception e) {
+                            System.out.println(a);
+                        }
+                    }
+break;
+
                 default:
                     System.out.println("Enter the right Input");
                     break;
