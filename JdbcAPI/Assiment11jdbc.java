@@ -31,8 +31,6 @@ public class Assiment11jdbc {
 break;
             case 2:
 try {
-
-
     rs.previous();
     System.out.println(STR."\{rs.getInt(1)}\t\{rs.getString(2)}\t\{rs.getString(3)}\t\{rs.getDate(4)}\t\{rs.getString(5)}");
 }catch (Exception e){
@@ -40,12 +38,8 @@ try {
 }
 break;
             case 3:
-
-
-
                     rs.last();
                     System.out.println(STR."\{rs.getInt(1)}\t\{rs.getString(2)}\t\{rs.getString(3)}\t\{rs.getDate(4)}\t\{rs.getString(5)}");
-
 break;
             case 4:
  try {
@@ -57,7 +51,5 @@ break;
                 break;
         }
         }
-
-
     }
 }
