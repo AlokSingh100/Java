@@ -36,20 +36,27 @@ ResultSet rs = statement.executeQuery("select * from "+Tablename);
             } else if (select.equals("Y")|| select.equals("y")) {
                 System.out.println("Enter The Table name");
                 String Table_name=scanner.next();
-                String value,add = "",chose,last = "";
+                String value,add = "",chose,last = "",calumn;
                 while (true){
 
-                    System.out.println("Enter The Column Name And Its Datatype");
-                    System.out.println("Example :- LastName varchar(255)");
-                    value=scanner.nextLine();
-                    System.out.println(" ");
-                    System.out.println(" ");
+                    System.out.println("Enter The Column Name");
+//                    System.out.println("Example :- LastName varchar(255)");
+//                    value=scanner.nextLine();
+                    System.out.println("Enter the column name ");
+                    calumn=scanner.next();
+                    System.out.println("Enter the Datatype");
+                    value=scanner.next();
+//                    System.out.println("Enter");
+//                    System.out.println(" ");
+//                    System.out.println(" ");
 
                     System.out.println("Do you want to add more Column [y/n]");
 
                     chose=scanner.next();
+
                     if (chose .equals("Y")|| chose.equals("y")) {
-                         add= add+value+" , ";
+//                        value=scanner.nextLine();
+//                         add= add+value+" , ";
                         continue;
 
                     } else if (chose .equals("N")|| chose.equals("n")) {
@@ -59,8 +66,8 @@ ResultSet rs = statement.executeQuery("select * from "+Tablename);
 
 
                 }
-
-                PreparedStatement calum=cnot.prepareStatement("Create Table "+Table_name+"("+add+" "+last);
+                System.out.println(Table_name+""+add+","+last);
+                PreparedStatement calum=cnot.prepareStatement("Create Table "+Table_name+"("+add+" , "+last+")");
 calum.executeUpdate();
 
 

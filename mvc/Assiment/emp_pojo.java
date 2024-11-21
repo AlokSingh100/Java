@@ -11,10 +11,12 @@ public class emp_pojo {
     String empname;
 
 
-    public void Employee(int empid, String empname, int salary) {
-        this.empid = empid;
+    public emp_pojo Employee(int empid,String empname, int salary) {
+        this.empid=empid;
         this.empname = empname;
         this.salary = salary;
+
+        return null;
     }
 
     public int getEmpid() {
@@ -33,7 +35,7 @@ public class emp_pojo {
         this.empname = empname;
     }
 
-    public float getSalary() {
+    public int getSalary() {
         return salary;
     }
 

@@ -15,13 +15,28 @@ class empDAO implements empinterface {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/super","root","Aptech@123");
         System.out.println("Sql Connection Establish");
 
-
-
      return con;
 }
 
     @Override
     public int save(emp_pojo e) {
+
+     Connection conect;
+     try {
+         conect=connection();
+
+
+
+         PreparedStatement insert= conect.prepareStatement("Insert into employe (Name,Salary) values (?,'?',?);");
+         insert.setInt(1,e.getEmpid());
+insert.setString(2,e.getEmpname());
+insert.setInt(3,e.getSalary());
+insert.executeUpdate();
+     }catch (Exception a){
+         System.out.println(a.getMessage());
+     }
+
+
 
         return 0;
     }
@@ -52,9 +67,7 @@ class empDAO implements empinterface {
 
         }
 
-
-
-        return List.of();
+        return empobject;
     }
 
     /**

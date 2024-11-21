@@ -61,15 +61,10 @@ try {
 }catch (Exception e){
     System.out.println(e.getMessage());
 }
-
-
                     break;
                 case 2:
                     System.out.println("Employee ID  | Employee Name  | Employee Salary ");
                     try {
-
-
-
                         ResultSet rs = stma.executeQuery("Select* from employe");
                         while (rs.next()) {
                             System.out.println(STR."\t\{rs.getInt(1)}\t\t\t\{rs.getString(2)}\t\t\t\{rs.getInt(3)}");
@@ -96,8 +91,6 @@ try {
 ////                        System.out.println(i);
 //                    }
                     try {
-
-
                         ResultSet ras = stma.executeQuery(STR."select * from employe where empid=\{sid}");
                         while (ras.next()) {
                             System.out.println(STR."\t\{ras.getInt(1)}\t\t\t\{ras.getString(2)}\t\t\t\{ras.getInt(3)}");
