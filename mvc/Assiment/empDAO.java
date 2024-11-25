@@ -19,21 +19,23 @@ class empDAO implements empinterface {
 }
 
     @Override
-    public int save(emp_pojo e) {
+    public int save(emp_pojo em) {
 
      Connection conect;
      try {
          conect=connection();
 
 
-
-         PreparedStatement insert= conect.prepareStatement("Insert into employe (Name,Salary) values (?,'?',?);");
-         insert.setInt(1,e.getEmpid());
-insert.setString(2,e.getEmpname());
-insert.setInt(3,e.getSalary());
+         System.out.println(em.getEmpid()+""+em.getSalary());
+         String a=em.empid+ ",'" +em.empname+"',"+em.salary;
+         System.out.println(a);
+         PreparedStatement insert= conect.prepareStatement("Insert into employe values (" +a+");");
+//         insert.setInt(1,em.getEmpid());
+//insert.setString(2,em.getEmpname());
+//insert.setInt(3,em.getSalary());
 insert.executeUpdate();
      }catch (Exception a){
-         System.out.println(a.getMessage());
+         System.out.println(a);
      }
 
 
@@ -85,6 +87,19 @@ insert.executeUpdate();
     @Override
     public void updateEmp(emp_pojo e) {
 
+        Connection con ;
+        try {
+con=connection();
+String updates= "update employe set Name= '"+e.empname+"' where EmpID= "+e.empid;
+
+            PreparedStatement update = con.prepareStatement(updates);
+//update.setString(1,e.empname);
+//update.setInt(2,e.empid);
+            update.executeUpdate();
+            System.out.println(updates);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -92,6 +107,15 @@ insert.executeUpdate();
      */
     @Override
     public void deleteEmp(emp_pojo e) {
+        Connection con;
+        try {
+            con=connection();
+         String del=" delete from employe where EmpID="+ e.empid;
+PreparedStatement deleate=con.prepareStatement(del);
+deleate.executeUpdate();
 
+        }catch (Exception ex ) {
+            System.out.println(ex);
+        }
     }
 }

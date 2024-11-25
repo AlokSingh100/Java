@@ -47,5 +47,9 @@ public class emp_pojo {
     public String toString() {
         return STR."      \{empid}           \{empname}              \{salary}";
     }
+
+    public emp_pojo Employee(emp_pojo em) {
+        return em;
+    }
 }
 
