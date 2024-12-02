@@ -30,9 +30,7 @@ class empDAO implements empinterface {
          String a=em.empid+ ",'" +em.empname+"',"+em.salary;
          System.out.println(a);
          PreparedStatement insert= conect.prepareStatement("Insert into employe values (" +a+");");
-//         insert.setInt(1,em.getEmpid());
-//insert.setString(2,em.getEmpname());
-//insert.setInt(3,em.getSalary());
+
 insert.executeUpdate();
      }catch (Exception a){
          System.out.println(a);

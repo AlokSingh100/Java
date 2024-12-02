@@ -15,27 +15,27 @@ public class packagss {
         switch (chose) {
             case 1:
                 ba = (double a, double b) -> {
-                    System.out.println("Addicional " + (a + b));
+                    System.out.println(STR."Addicional \{a + b}");
 
                 };
                 break;
             case 2:
                 ba = (double a, double b) -> {
-                    System.out.println("Sibcrition " + (a - b));
+                    System.out.println(STR."Sibcrition \{a - b}");
 
                 };
                 break;
             case 3:
                 ba = (double a, double b) -> {
 
-                    System.out.println("Multiply " + a * b);
+                    System.out.println(STR."Multiply \{a * b}");
 
                 };
                 break;
             case 4:
                 ba = (double a, double b) -> {
 
-                    System.out.println("Devide " + a / b);
+                    System.out.println(STR."Devide \{a / b}");
                 };
                 break;
         }
