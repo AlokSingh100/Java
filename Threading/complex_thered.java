@@ -41,8 +41,6 @@ public class complex_thered {
     static  main1 p1=null;
     static main2 p2=null;
     public static void main(String[] args) throws InterruptedException {
-
-
         p1 = new main1("Theread 1");
         p2=new main2("Theread 2");
         System.out.println("Thread1 Status= " +p1.getState());
@@ -53,7 +51,5 @@ p1.join();
 p2.start();
         System.out.println("Thread 1 State"+ p1.getState());
                 System.out.println("Thread 2 State"+ p2.getState());
-
-
     }
 }
