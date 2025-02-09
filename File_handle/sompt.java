@@ -13,7 +13,6 @@ public class sompt {
         if(ov.isDirectory())
         System.out.println(ov);
         else System.out.println("\t\t\t"+ov);
-
     }
     }
 }
